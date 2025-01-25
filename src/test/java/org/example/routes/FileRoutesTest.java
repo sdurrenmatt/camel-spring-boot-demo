@@ -20,6 +20,18 @@ import org.springframework.util.StreamUtils;
 import java.io.File;
 import java.nio.charset.StandardCharsets;
 
+/**
+ * Unit tests for file processing routes defined in the {@link FileRoutes} class.
+ * <p>
+ * This test class uses Apache Camel and Spring Boot testing tools to simulate file processing.
+ * The tests make sure input files are processed and transformed as expected, with results sent to the output directory.
+ * Mock endpoints are used to intercept messages and validate the expected outputs.
+ * </p>
+ *
+ * @author Steven Dürrenmatt
+ * @see <a href="https://camel.apache.org/manual/testing.html">Apache Camel Testing</a>
+ * @see <a href="https://camel.apache.org/components/mock-component.html">Mock Component</a>
+ */
 @CamelSpringBootTest
 @SpringBootTest
 @DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
