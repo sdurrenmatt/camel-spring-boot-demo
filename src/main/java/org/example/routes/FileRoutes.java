@@ -14,26 +14,23 @@ import org.springframework.stereotype.Component;
  * </p>
  *
  * <p>
- * Configuration: The directory paths are read from the application properties
+ * The directory paths are read from the application properties
  * (file.in.dir, file.out.dir) and are expected to be configured as part of the application's setup.
  * </p>
  *
+ * @author Steven Dürrenmatt
  * @see <a href="https://camel.apache.org/components/file-component.html">File Component</a>
  * @see <a href="https://camel.apache.org/components/eips/marshal-eip.html">Marshal EIP</a>
  * @see <a href="https://camel.apache.org/components/dataformats/jackson-dataformat.html">Jackson Data Format</a>
  * @see <a href="https://camel.apache.org/components/dataformats/snakeYaml-dataformat.html">SnakeYAML Data Format</a>
  * @see <a href="https://camel.apache.org/components/languages/simple-language.html">Simple Language</a>
  * @see <a href="https://camel.apache.org/components/languages/jsonpath-language.html">JSONPath Language</a>
- *
- * @author Steven Dürrenmatt
  */
 @Component
 public class FileRoutes extends RouteBuilder {
 
     @Override
     public void configure() {
-        getContext().setStreamCaching(true);
-
         // This route filters a JSON file by excluding entries with the symbol 'BTCUSDT'
         // and writes the filtered data to a new file named 'altcoins-prices.json'.
         from("file:{{file.in.dir}}?fileName=prices.json&delete=true")
