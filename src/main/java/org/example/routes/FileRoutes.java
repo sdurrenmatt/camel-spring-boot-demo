@@ -23,7 +23,6 @@ import org.springframework.stereotype.Component;
  * @see <a href="https://camel.apache.org/components/eips/marshal-eip.html">Marshal EIP</a>
  * @see <a href="https://camel.apache.org/components/dataformats/jackson-dataformat.html">Jackson Data Format</a>
  * @see <a href="https://camel.apache.org/components/dataformats/snakeYaml-dataformat.html">SnakeYAML Data Format</a>
- * @see <a href="https://camel.apache.org/components/languages/simple-language.html">Simple Language</a>
  * @see <a href="https://camel.apache.org/components/languages/jsonpath-language.html">JSONPath Language</a>
  */
 @Component
@@ -32,11 +31,11 @@ public class FileRoutes extends RouteBuilder {
     @Override
     public void configure() {
         // This route filters a JSON file by excluding entries with the symbol 'BTCUSDT'
-        // and writes the filtered data to a new file named 'altcoins-prices.json'.
+        // and writes the filtered data to a new file named 'prices-altcoins.json'.
         from("file:{{file.in.dir}}?fileName=prices.json&delete=true")
             .setBody(jsonpath("$[?(@.symbol != 'BTCUSDT')]"))
             .marshal().json(true)
-            .to("file:{{file.out.dir}}?fileName=altcoins-prices.json");
+            .to("file:{{file.out.dir}}?fileName=prices-altcoins.json");
 
         // This route converts all YAML files in the input directory to JSON files
         // and saves them to the output directory with a '.json' extension.

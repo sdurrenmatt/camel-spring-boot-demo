@@ -1,0 +1,10 @@
+[
+  {
+    "operation": "shift",
+    "spec": {
+      "0": {
+        "url": "imageUrl"
+      }
+    }
+  }
+]

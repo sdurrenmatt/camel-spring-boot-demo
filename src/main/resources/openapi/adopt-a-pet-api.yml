@@ -1,0 +1,124 @@
+openapi: 3.0.0
+info:
+  version: 1.0.0
+  title: Adopt a Pet – Random Pet Finder
+  description: Find adorable random pets and give them a forever home! 🐶🐱💕
+  license:
+    name: MIT
+servers:
+  - url: http://localhost:8080/api/v1
+paths:
+  /pets/surprise:
+    get:
+      summary: Get a random available pet
+      operationId: getRandomPet
+      tags:
+        - pets
+      parameters:
+        - name: type
+          in: query
+          description: Type of pet
+          required: true
+          schema:
+            type: string
+            enum:
+              - dog
+              - cat
+      responses:
+        '200':
+          description: A single available pet
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Pet'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /pets/adopt:
+    post:
+      summary: Adopt a pet
+      operationId: adoptPet
+      tags:
+        - pets
+      requestBody:
+        description: Request to adopt a pet
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - imageUrl
+              properties:
+                imageUrl:
+                  type: string
+                  format: uri
+                  description: URL of the pet's image
+                  example: "https://cdn2.thecatapi.com/images/afp.jpg"
+      responses:
+        '200':
+          description: Adoption successful
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AdoptionResponse'
+        '404':
+          description: Pet not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+components:
+  schemas:
+    Pet:
+      type: object
+      required:
+        - imageUrl
+      properties:
+        imageUrl:
+          type: string
+          format: uri
+          description: URL of the pet's image
+          example: "https://cdn2.thecatapi.com/images/afp.jpg"
+
+    AdoptionResponse:
+      type: object
+      required:
+        - status
+        - pickupLocation
+      properties:
+        status:
+          type: string
+          description: Confirmation message
+          example: "Adoption successful!"
+        pickupLocation:
+          type: string
+          description: Location where the pet can be picked up
+          example: "Pet Shelter #3, Downtown"
+
+    Error:
+      type: object
+      required:
+        - code
+        - message
+      properties:
+        code:
+          type: integer
+          format: int32
+          description: Error code
+          example: 500
+        message:
+          type: string
+          description: Description of the error
+          example: "Internal server error"
