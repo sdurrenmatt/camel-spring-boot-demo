@@ -38,7 +38,7 @@ public class RestRoutes extends RouteBuilder {
         from("direct:getRandomPet")
             .choice()
                 .when(header("type").isEqualTo("dog"))
-                    .setHeader(Exchange.HTTP_URI, constant("https://dog.ceo/api/breeds/image/random?bridgeEndpoint=true"))
+                    .setHeader(Exchange.HTTP_URI, constant("https://dog.ceo/api/breeds/image/random"))
                     .to("http:dogApi")
                     .to("jolt:jolt/dog-to-pet.json?inputType=JsonString&outputType=JsonString")
                 .when(header("type").isEqualTo("cat"))
