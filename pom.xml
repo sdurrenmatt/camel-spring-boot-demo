@@ -12,8 +12,8 @@
         <maven.compiler.source>21</maven.compiler.source>
         <maven.compiler.target>21</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <spring-boot.version>3.3.7</spring-boot.version>
-        <camel.version>4.8.3</camel.version>
+        <spring-boot.version>3.4.7</spring-boot.version>
+        <camel.version>4.10.6</camel.version>
     </properties>
 
     <dependencyManagement>
